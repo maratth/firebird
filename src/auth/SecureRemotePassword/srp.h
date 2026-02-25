@@ -7,7 +7,7 @@
 #ifndef AUTH_SRP_SRP_H
 #define AUTH_SRP_SRP_H
 
-#define SRP_DEBUG 0		// >0 - prints some debug info
+#define SRP_DEBUG 1		// >0 - prints some debug info
 						// >1 - uses consts instead randoms, NEVER use in PRODUCTION!
 
 // for HANDSHAKE_DEBUG
