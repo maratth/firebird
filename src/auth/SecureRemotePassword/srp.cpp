@@ -86,11 +86,15 @@ BigInteger RemotePassword::getUserHash(const char* account, const char* salt, co
 	UCharBuffer hash1;
 	hash.getHash(hash1);
 
+	dumpIt("uh:hash1", hash1);
+
 	hash.reset();
 	hash.process(salt);
 	hash.process(hash1);
 	BigInteger rc;
 	hash.getInt(rc);
+
+	dumpIt("uh:hash2(BI)", rc);
 
 	return rc;
 }
@@ -165,7 +169,9 @@ void RemotePassword::serverSessionKey(UCharBuffer& sessionKey, const char* clien
 	computeScramble();
 	dumpIt("scramble", scramble);
 	BigInteger v = BigInteger(verifier);
+	dumpIt("v", v);
 	BigInteger vu = v.modPow(scramble, group->prime);					// v^u
+	dumpIt("vu", vu);
 	BigInteger Avu = (clientPublicKey * vu) % group->prime;				// Av^u
 	dumpIt("Avu", Avu);
 	BigInteger sessionSecret = Avu.modPow(privateKey, group->prime);	// (Av^u) ^ b
